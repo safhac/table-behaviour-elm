@@ -3,7 +3,7 @@ module Main exposing (..)
 import Html exposing (Html, div, table, text)
 import NoteList exposing (..)
 import Styles exposing (..)
-import TableView exposing (renderNoteRow)
+import TableView exposing (..)
 
 
 main : Program Never (Model a) Msg
@@ -110,11 +110,19 @@ update msg model =
 
 view : Model a -> Html Msg
 view model =
-    div [ standardContainerStyle ]
-        [ table [ tableStyle ]
-            (model.list
+    let
+        header =
+            renderTableHead
+
+        content =
+            model.list
                 |> asList
                 |> List.map
                     renderNoteRow
+    in
+    div [ standardContainerStyle ]
+        [ table [ tableStyle ]
+            (header
+                :: content
             )
         ]

@@ -8920,6 +8920,43 @@ var _safhac$elm_app_demo$TableView$formatTimestamp = function (timestamp) {
 		_elm_lang$core$Basics$toString(
 			_elm_lang$core$Date$fromTime(timestamp)));
 };
+var _safhac$elm_app_demo$TableView$renderTableHead = A2(
+	_elm_lang$html$Html$thead,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$th,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Title'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$th,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Created'),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$input,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$placeholder('   Search....'),
+								_1: {ctor: '[]'}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
 var _safhac$elm_app_demo$TableView$renderNoteRow = function (_p0) {
 	var _p1 = _p0;
 	var _p3 = _p1._0.body;
@@ -9158,6 +9195,11 @@ var _safhac$elm_app_demo$TableView$renderNoteRow = function (_p0) {
 };
 
 var _safhac$elm_app_demo$Main$view = function (model) {
+	var content = A2(
+		_elm_lang$core$List$map,
+		_safhac$elm_app_demo$TableView$renderNoteRow,
+		_safhac$elm_app_demo$NoteList$asList(model.list));
+	var header = _safhac$elm_app_demo$TableView$renderTableHead;
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -9174,10 +9216,7 @@ var _safhac$elm_app_demo$Main$view = function (model) {
 					_0: _safhac$elm_app_demo$Styles$tableStyle,
 					_1: {ctor: '[]'}
 				},
-				A2(
-					_elm_lang$core$List$map,
-					_safhac$elm_app_demo$TableView$renderNoteRow,
-					_safhac$elm_app_demo$NoteList$asList(model.list))),
+				{ctor: '::', _0: header, _1: content}),
 			_1: {ctor: '[]'}
 		});
 };

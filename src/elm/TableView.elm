@@ -1,7 +1,7 @@
-module TableView exposing (renderNoteRow)
+module TableView exposing (..)
 
 import Date
-import Html exposing (Html, a, div, input, td, text, tr)
+import Html exposing (Html, a, div, input, td, text, th, thead, tr)
 import Html.Attributes exposing (placeholder, type_)
 import Html.Events exposing (onClick)
 import NoteList exposing (..)
@@ -71,6 +71,14 @@ renderNoteRow (Note { body, createdDate } state) =
                         ]
     in
     rowElement
+
+
+renderTableHead : Html msg
+renderTableHead =
+    thead []
+        [ th [] [ text "Title" ]
+        , th [] [ text "Created", input [ placeholder "   Search...." ] [] ]
+        ]
 
 
 formatTimestamp : Float -> String
