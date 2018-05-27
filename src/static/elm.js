@@ -8749,6 +8749,13 @@ var _safhac$elm_app_demo$NoteList$NoteBody = F2(
 	function (a, b) {
 		return {body: a, createdDate: b};
 	});
+var _safhac$elm_app_demo$NoteList$NoteMsg = function (a) {
+	return {ctor: 'NoteMsg', _0: a};
+};
+var _safhac$elm_app_demo$NoteList$FilterMsg = function (a) {
+	return {ctor: 'FilterMsg', _0: a};
+};
+var _safhac$elm_app_demo$NoteList$NoOp = {ctor: 'NoOp'};
 var _safhac$elm_app_demo$NoteList$Note = F2(
 	function (a, b) {
 		return {ctor: 'Note', _0: a, _1: b};
@@ -8773,6 +8780,30 @@ var _safhac$elm_app_demo$NoteList$FilterList = function (a) {
 var _safhac$elm_app_demo$NoteList$Alphabetically = {ctor: 'Alphabetically'};
 var _safhac$elm_app_demo$NoteList$CreationDate = {ctor: 'CreationDate'};
 
+var _safhac$elm_app_demo$Styles$searchHeader = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'justify-content', _1: 'space-around'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+			_1: {ctor: '[]'}
+		}
+	});
+var _safhac$elm_app_demo$Styles$tHeader = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'color', _1: 'lightslategrey'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'line-height', _1: '40px'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'cursor', _1: 'pointer'},
+				_1: {ctor: '[]'}
+			}
+		}
+	});
 var _safhac$elm_app_demo$Styles$hidden = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
@@ -8812,7 +8843,7 @@ var _safhac$elm_app_demo$Styles$deleted = _elm_lang$html$Html_Attributes$style(
 			_0: {ctor: '_Tuple2', _0: 'border', _1: '1px solid rgba(255, 255, 255, 0.6)'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'color', _1: 'rgba(0, 0, 0, 0.6)'},
+				_0: {ctor: '_Tuple2', _0: 'color', _1: 'rgba(0, 0, 0, 0.4)'},
 				_1: {ctor: '[]'}
 			}
 		}
@@ -8823,7 +8854,7 @@ var _safhac$elm_app_demo$Styles$edited = _elm_lang$html$Html_Attributes$style(
 		_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'height', _1: '25px'},
+			_0: {ctor: '_Tuple2', _0: 'height', _1: '45px'},
 			_1: {
 				ctor: '::',
 				_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
@@ -8864,7 +8895,7 @@ var _safhac$elm_app_demo$Styles$selected = _elm_lang$html$Html_Attributes$style(
 var _safhac$elm_app_demo$Styles$rowStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',
-		_0: {ctor: '_Tuple2', _0: 'line-height', _1: '30px'},
+		_0: {ctor: '_Tuple2', _0: 'line-height', _1: '50px'},
 		_1: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'color', _1: '#3c5966'},
@@ -8927,7 +8958,15 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 		ctor: '::',
 		_0: A2(
 			_elm_lang$html$Html$th,
-			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(_safhac$elm_app_demo$NoteList$NoOp),
+				_1: {
+					ctor: '::',
+					_0: _safhac$elm_app_demo$Styles$tHeader,
+					_1: {ctor: '[]'}
+				}
+			},
 			{
 				ctor: '::',
 				_0: _elm_lang$html$Html$text('Title'),
@@ -8937,7 +8976,19 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$th,
-				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(_safhac$elm_app_demo$NoteList$NoOp),
+					_1: {
+						ctor: '::',
+						_0: _safhac$elm_app_demo$Styles$tHeader,
+						_1: {
+							ctor: '::',
+							_0: _safhac$elm_app_demo$Styles$searchHeader,
+							_1: {ctor: '[]'}
+						}
+					}
+				},
 				{
 					ctor: '::',
 					_0: _elm_lang$html$Html$text('Created'),
@@ -8947,7 +8998,7 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 							_elm_lang$html$Html$input,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$placeholder('   Search....'),
+								_0: _elm_lang$html$Html_Attributes$placeholder('  Search...'),
 								_1: {ctor: '[]'}
 							},
 							{ctor: '[]'}),
@@ -9294,7 +9345,6 @@ var _safhac$elm_app_demo$Main$main = _elm_lang$html$Html$program(
 var _safhac$elm_app_demo$Main$Model = function (a) {
 	return {list: a};
 };
-var _safhac$elm_app_demo$Main$NoOp = {ctor: 'NoOp'};
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

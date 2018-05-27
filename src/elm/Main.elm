@@ -17,14 +17,6 @@ main =
 
 
 
--- Msg
-
-
-type Msg
-    = NoOp
-
-
-
 -- Model
 
 

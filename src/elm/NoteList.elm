@@ -1,5 +1,15 @@
 module NoteList exposing (..)
 
+-- Msg
+
+
+type Msg
+    = NoOp
+    | FilterMsg FilterSort
+    | NoteMsg NoteState
+
+
+
 -- Note
 
 

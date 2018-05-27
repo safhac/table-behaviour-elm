@@ -8,7 +8,7 @@ import NoteList exposing (..)
 import Styles exposing (..)
 
 
-renderNoteRow : Note a -> Html msg
+renderNoteRow : Note a -> Html Msg
 renderNoteRow (Note { body, createdDate } state) =
     let
         showDate =
@@ -73,11 +73,11 @@ renderNoteRow (Note { body, createdDate } state) =
     rowElement
 
 
-renderTableHead : Html msg
+renderTableHead : Html Msg
 renderTableHead =
     thead []
-        [ th [] [ text "Title" ]
-        , th [] [ text "Created", input [ placeholder "   Search...." ] [] ]
+        [ th [ onClick NoOp, tHeader ] [ text "Title" ]
+        , th [ onClick NoOp, tHeader, searchHeader ] [ text "Created", input [ placeholder "  Search..." ] [] ]
         ]
 
 

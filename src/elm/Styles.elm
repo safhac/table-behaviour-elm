@@ -28,7 +28,7 @@ tableStyle =
 rowStyle : Attribute msg
 rowStyle =
     style
-        [ ( "line-height", "30px" )
+        [ ( "line-height", "50px" )
         , ( "color", "#3c5966" )
         ]
 
@@ -47,7 +47,7 @@ edited : Attribute msg
 edited =
     style
         [ ( "width", "100%" )
-        , ( "height", "25px" )
+        , ( "height", "45px" )
         , ( "border-radius", "3px" )
         , ( "border", "none" )
         , ( "text-align", "center" )
@@ -60,7 +60,7 @@ deleted =
     style
         [ ( "text-shadow", "white 0px 1px 0px" )
         , ( "border", "1px solid rgba(255, 255, 255, 0.6)" )
-        , ( "color", "rgba(0, 0, 0, 0.6)" )
+        , ( "color", "rgba(0, 0, 0, 0.4)" )
         ]
 
 
@@ -81,4 +81,21 @@ hidden =
         , ( "opacity", "0.4" )
         , ( "color", "transparent" )
         , ( "text-shadow", "0 0 1px #000 " )
+        ]
+
+
+tHeader : Attribute msg
+tHeader =
+    style
+        [ ( "color", "lightslategrey" )
+        , ( "line-height", "40px" )
+        , ( "cursor", "pointer" )
+        ]
+
+
+searchHeader : Attribute msg
+searchHeader =
+    style
+        [ ( "justify-content", "space-around" )
+        , ( "display", "flex" )
         ]
