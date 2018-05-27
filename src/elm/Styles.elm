@@ -29,6 +29,7 @@ rowStyle : Attribute msg
 rowStyle =
     style
         [ ( "line-height", "30px" )
+        , ( "color", "#3c5966" )
         ]
 
 
@@ -48,7 +49,11 @@ edited =
 
 deleted : Attribute msg
 deleted =
-    style []
+    style
+        [ ( "text-shadow", "white 0px 1px 0px" )
+        , ( "border", "1px solid rgba(255, 255, 255, 0.6)" )
+        , ( "color", "rgba(0, 0, 0, 0.6)" )
+        ]
 
 
 created : Attribute msg
@@ -58,9 +63,14 @@ created =
 
 displayed : Attribute msg
 displayed =
-    style []
+    style [ ( "box-shadow", "0 1px 1px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.19)" ) ]
 
 
 hidden : Attribute msg
 hidden =
-    style []
+    style
+        [ ( "background-color", "#fefefe" )
+        , ( "opacity", "0.4" )
+        , ( "color", "transparent" )
+        , ( "text-shadow", "0 0 1px #000 " )
+        ]

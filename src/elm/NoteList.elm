@@ -49,6 +49,13 @@ type SortListBy
 -- Helpers
 
 
+createNote : String -> NoteBody
+createNote text =
+    { body = text
+    , createdDate = 0
+    }
+
+
 asList : SortedList a -> List (Note a)
 asList (SortedList list state) =
     list

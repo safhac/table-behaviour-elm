@@ -49,7 +49,33 @@ initialNoteList =
 
 initialList : NoteList a
 initialList =
-    [ initialNote ]
+    [ initialNote
+    , Note
+        (createNote
+            "Note 2"
+        )
+        Displayed
+    , Note
+        (createNote
+            "Deleted note"
+        )
+        Deleted
+    , Note
+        (createNote
+            "Selected note"
+        )
+        Selected
+    , Note
+        (createNote
+            "Edited note"
+        )
+        Edited
+    , Note
+        (createNote
+            "Hidden note"
+        )
+        Hidden
+    ]
 
 
 initialNote : Note a
