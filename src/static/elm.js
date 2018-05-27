@@ -7803,6 +7803,8 @@ var _safhac$elm_app_demo$NoteList$Note = F2(
 	function (a, b) {
 		return {ctor: 'Note', _0: a, _1: b};
 	});
+var _safhac$elm_app_demo$NoteList$Hidden = {ctor: 'Hidden'};
+var _safhac$elm_app_demo$NoteList$Displayed = {ctor: 'Displayed'};
 var _safhac$elm_app_demo$NoteList$Created = {ctor: 'Created'};
 var _safhac$elm_app_demo$NoteList$Deleted = {ctor: 'Deleted'};
 var _safhac$elm_app_demo$NoteList$Edited = {ctor: 'Edited'};
@@ -7811,11 +7813,12 @@ var _safhac$elm_app_demo$NoteList$SortedList = F2(
 	function (a, b) {
 		return {ctor: 'SortedList', _0: a, _1: b};
 	});
-var _safhac$elm_app_demo$NoteList$Sort = function (a) {
-	return {ctor: 'Sort', _0: a};
+var _safhac$elm_app_demo$NoteList$UnOrdered = {ctor: 'UnOrdered'};
+var _safhac$elm_app_demo$NoteList$SortList = function (a) {
+	return {ctor: 'SortList', _0: a};
 };
-var _safhac$elm_app_demo$NoteList$Filter = function (a) {
-	return {ctor: 'Filter', _0: a};
+var _safhac$elm_app_demo$NoteList$FilterList = function (a) {
+	return {ctor: 'FilterList', _0: a};
 };
 var _safhac$elm_app_demo$NoteList$Alphabetically = {ctor: 'Alphabetically'};
 var _safhac$elm_app_demo$NoteList$CreationDate = {ctor: 'CreationDate'};
@@ -7826,7 +7829,8 @@ var _safhac$elm_app_demo$Main$view = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(model.message),
+			_0: _elm_lang$html$Html$text(
+				_elm_lang$core$Basics$toString(model.list)),
 			_1: {ctor: '[]'}
 		});
 };
@@ -7834,9 +7838,20 @@ var _safhac$elm_app_demo$Main$update = F2(
 	function (msg, model) {
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
+var _safhac$elm_app_demo$Main$initialNoteBody = {text: 'My first note :)', created: 0};
+var _safhac$elm_app_demo$Main$initialNote = A2(_safhac$elm_app_demo$NoteList$Note, _safhac$elm_app_demo$Main$initialNoteBody, _safhac$elm_app_demo$NoteList$Displayed);
+var _safhac$elm_app_demo$Main$initialList = {
+	ctor: '::',
+	_0: _safhac$elm_app_demo$Main$initialNote,
+	_1: {ctor: '[]'}
+};
+var _safhac$elm_app_demo$Main$initialNoteList = A2(
+	_safhac$elm_app_demo$NoteList$SortedList,
+	_safhac$elm_app_demo$Main$initialList,
+	_safhac$elm_app_demo$NoteList$SortList(_safhac$elm_app_demo$NoteList$Alphabetically));
 var _safhac$elm_app_demo$Main$init = {
 	ctor: '_Tuple2',
-	_0: {message: 'Elm program is ready. Get started!'},
+	_0: {list: _safhac$elm_app_demo$Main$initialNoteList},
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _safhac$elm_app_demo$Main$main = _elm_lang$html$Html$program(
@@ -7849,7 +7864,7 @@ var _safhac$elm_app_demo$Main$main = _elm_lang$html$Html$program(
 		}
 	})();
 var _safhac$elm_app_demo$Main$Model = function (a) {
-	return {message: a};
+	return {list: a};
 };
 var _safhac$elm_app_demo$Main$NoOp = {ctor: 'NoOp'};
 

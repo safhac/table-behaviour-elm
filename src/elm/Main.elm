@@ -4,7 +4,7 @@ import Html exposing (Html, div, text)
 import NoteList exposing (..)
 
 
-main : Program Never Model Msg
+main : Program Never (Model a) Msg
 main =
     Html.program
         { init = init
@@ -15,12 +15,7 @@ main =
 
 
 
--- TYPES
-
-
-type alias Model =
-    { message : String
-    }
+-- Msg
 
 
 type Msg
@@ -28,19 +23,50 @@ type Msg
 
 
 
--- MODEL
+-- Model
 
 
-init : ( Model, Cmd Msg )
+type alias Model a =
+    { list : SortedList a
+    }
+
+
+
+-- Init
+
+
+init : ( Model a, Cmd Msg )
 init =
-    ( { message = "Elm program is ready. Get started!" }, Cmd.none )
+    ( { list = initialNoteList }, Cmd.none )
+
+
+initialNoteList : SortedList a
+initialNoteList =
+    SortedList initialList (Alphabetically |> SortList)
+
+
+initialList : NoteList a
+initialList =
+    [ initialNote ]
+
+
+initialNote : Note a
+initialNote =
+    Note initialNoteBody Displayed
+
+
+initialNoteBody : NoteBody
+initialNoteBody =
+    { text = "My first note :)"
+    , created = 0
+    }
 
 
 
 -- UPDATE
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model a -> ( Model a, Cmd Msg )
 update msg model =
     ( model, Cmd.none )
 
@@ -49,6 +75,6 @@ update msg model =
 -- VIEW
 
 
-view : Model -> Html Msg
+view : Model a -> Html Msg
 view model =
-    div [] [ text model.message ]
+    div [] [ model.list |> toString |> text ]

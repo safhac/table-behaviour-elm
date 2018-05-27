@@ -12,6 +12,8 @@ type NoteState
     | Edited
     | Deleted
     | Created
+    | Displayed
+    | Hidden
 
 
 type alias NoteBody =
@@ -25,18 +27,19 @@ type alias NoteBody =
 
 
 type SortedList a
-    = SortedList NoteList FilerSort
+    = SortedList (NoteList a) FilterSort
 
 
-type alias NoteList =
-    List Note
+type alias NoteList a =
+    List (Note a)
 
 
-type FilerSort
-    = Filter String
-    | Sort SortyBy
+type FilterSort
+    = FilterList String
+    | SortList SortListBy
+    | UnOrdered
 
 
-type SortyBy
+type SortListBy
     = CreationDate
     | Alphabetically
