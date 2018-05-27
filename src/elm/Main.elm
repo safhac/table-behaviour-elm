@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (Html, div, table, text)
 import NoteList exposing (..)
+import Styles exposing (..)
 import TableView exposing (renderNoteRow)
 
 
@@ -59,7 +60,7 @@ initialNote =
 initialNoteBody : NoteBody
 initialNoteBody =
     { body = "My first note :)"
-    , created = 0
+    , createdDate = 0
     }
 
 
@@ -78,8 +79,8 @@ update msg model =
 
 view : Model a -> Html Msg
 view model =
-    div []
-        [ table []
+    div [ standardContainerStyle ]
+        [ table [ tableStyle ]
             (model.list
                 |> asList
                 |> List.map

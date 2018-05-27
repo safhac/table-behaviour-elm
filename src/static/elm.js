@@ -8151,7 +8151,7 @@ var _safhac$elm_app_demo$NoteList$asList = function (_p0) {
 };
 var _safhac$elm_app_demo$NoteList$NoteBody = F2(
 	function (a, b) {
-		return {body: a, created: b};
+		return {body: a, createdDate: b};
 	});
 var _safhac$elm_app_demo$NoteList$Note = F2(
 	function (a, b) {
@@ -8177,31 +8177,106 @@ var _safhac$elm_app_demo$NoteList$FilterList = function (a) {
 var _safhac$elm_app_demo$NoteList$Alphabetically = {ctor: 'Alphabetically'};
 var _safhac$elm_app_demo$NoteList$CreationDate = {ctor: 'CreationDate'};
 
+var _safhac$elm_app_demo$Styles$hidden = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _safhac$elm_app_demo$Styles$displayed = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _safhac$elm_app_demo$Styles$created = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _safhac$elm_app_demo$Styles$deleted = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _safhac$elm_app_demo$Styles$edited = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _safhac$elm_app_demo$Styles$selected = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'background-color', _1: '#fefefe'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'border', _1: '1px solid #888'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'box-shadow', _1: '0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'},
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _safhac$elm_app_demo$Styles$rowStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'line-height', _1: '30px'},
+		_1: {ctor: '[]'}
+	});
+var _safhac$elm_app_demo$Styles$tableStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'background-color', _1: 'lightgray'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'border-radius', _1: '3px'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'margin', _1: 'auto'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'width', _1: '50vw'},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _safhac$elm_app_demo$Styles$standardContainerStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'flex', _1: '1'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'flex-direction', _1: 'column'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'font-family', _1: 'sans-serif'},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	});
+
 var _safhac$elm_app_demo$TableView$renderNoteRow = function (_p0) {
 	var _p1 = _p0;
 	var noteStyle = function () {
 		var _p2 = _p1._1;
 		switch (_p2.ctor) {
 			case 'Selected':
-				return 'Selected';
+				return _safhac$elm_app_demo$Styles$selected;
 			case 'Edited':
-				return 'Edited';
+				return _safhac$elm_app_demo$Styles$edited;
 			case 'Deleted':
-				return 'Deleted';
+				return _safhac$elm_app_demo$Styles$deleted;
 			case 'Created':
-				return 'Created';
+				return _safhac$elm_app_demo$Styles$created;
 			case 'Displayed':
-				return 'Displayed';
+				return _safhac$elm_app_demo$Styles$displayed;
 			default:
-				return 'Hidden';
+				return _safhac$elm_app_demo$Styles$hidden;
 		}
 	}();
 	return A2(
 		_elm_lang$html$Html$tr,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class(noteStyle),
-			_1: {ctor: '[]'}
+			_0: _safhac$elm_app_demo$Styles$rowStyle,
+			_1: {
+				ctor: '::',
+				_0: noteStyle,
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',
@@ -8231,12 +8306,20 @@ var _safhac$elm_app_demo$TableView$renderNoteRow = function (_p0) {
 var _safhac$elm_app_demo$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _safhac$elm_app_demo$Styles$standardContainerStyle,
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$table,
-				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _safhac$elm_app_demo$Styles$tableStyle,
+					_1: {ctor: '[]'}
+				},
 				A2(
 					_elm_lang$core$List$map,
 					_safhac$elm_app_demo$TableView$renderNoteRow,
@@ -8248,7 +8331,7 @@ var _safhac$elm_app_demo$Main$update = F2(
 	function (msg, model) {
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 	});
-var _safhac$elm_app_demo$Main$initialNoteBody = {body: 'My first note :)', created: 0};
+var _safhac$elm_app_demo$Main$initialNoteBody = {body: 'My first note :)', createdDate: 0};
 var _safhac$elm_app_demo$Main$initialNote = A2(_safhac$elm_app_demo$NoteList$Note, _safhac$elm_app_demo$Main$initialNoteBody, _safhac$elm_app_demo$NoteList$Displayed);
 var _safhac$elm_app_demo$Main$initialList = {
 	ctor: '::',

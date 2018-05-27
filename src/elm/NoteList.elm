@@ -18,7 +18,7 @@ type NoteState
 
 type alias NoteBody =
     { body : String
-    , created : Float
+    , createdDate : Float
     }
 
 
