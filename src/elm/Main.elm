@@ -6,7 +6,7 @@ import Styles exposing (..)
 import TableView exposing (..)
 
 
-main : Program Never (Model a) Msg
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -20,8 +20,8 @@ main =
 -- Model
 
 
-type alias Model a =
-    { list : SortedList a
+type alias Model =
+    { list : SortedList
     }
 
 
@@ -29,61 +29,45 @@ type alias Model a =
 -- Init
 
 
-init : ( Model a, Cmd Msg )
+init : ( Model, Cmd Msg )
 init =
     ( { list = initialNoteList }, Cmd.none )
 
 
-initialNoteList : SortedList a
+initialNoteList : SortedList
 initialNoteList =
-    SortedList initialList (Alphabetically |> SortList)
+    SortedList initialList (Alphabetically Desc |> SortList)
 
 
-initialList : NoteList a
+initialList : NoteList
 initialList =
     [ initialNote
-    , Note
-        (createNote
-            "Note 2"
-        )
+    , createNote
+        "Note 2"
         Displayed
-    , Note
-        (createNote
-            "Deleted note"
-        )
+    , createNote
+        "Deleted note"
         Deleted
-    , Note
-        (createNote
-            "Selected note"
-        )
+    , createNote
+        "Selected note"
         Selected
-    , Note
-        (createNote
-            "Edited note"
-        )
+    , createNote
+        "Edited note"
         Edited
-    , Note
-        (createNote
-            "Hidden note"
-        )
+    , createNote
+        "Hidden note"
         Hidden
-    , Note
-        (createNote
-            ""
-        )
+    , createNote
+        ""
         Created
     ]
 
 
-initialNote : Note a
+initialNote : Note
 initialNote =
-    Note initialNoteBody Displayed
-
-
-initialNoteBody : NoteBody
-initialNoteBody =
     { body = "My first note :)"
     , createdDate = 0
+    , state = Displayed
     }
 
 
@@ -91,16 +75,31 @@ initialNoteBody =
 -- UPDATE
 
 
-update : Msg -> Model a -> ( Model a, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        FilterMsg filterSort ->
+            case filterSort of
+                SortList sortListBy ->
+                    case sortListBy of
+                        Alphabetically direction ->
+                            { list = SortedList initialList (Alphabetically direction |> SortList) } ! []
+
+                        CreationDate direction ->
+                            { list = SortedList initialList (CreationDate direction |> SortList) } ! []
+
+                FilterList filter ->
+                    { list = SortedList initialList (FilterList filter) } ! []
+
+        _ ->
+            model ! []
 
 
 
 -- VIEW
 
 
-view : Model a -> Html Msg
+view : Model -> Html Msg
 view model =
     let
         header =

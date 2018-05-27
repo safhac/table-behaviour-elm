@@ -11,10 +11,8 @@ type Msg
 
 
 -- Note
-
-
-type Note a
-    = Note NoteBody NoteState
+-- type Note
+--     = Note NoteBody NoteState
 
 
 type NoteState
@@ -26,9 +24,10 @@ type NoteState
     | Hidden
 
 
-type alias NoteBody =
+type alias Note =
     { body : String
     , createdDate : Float
+    , state : NoteState
     }
 
 
@@ -36,36 +35,62 @@ type alias NoteBody =
 -- Note List
 
 
-type SortedList a
-    = SortedList (NoteList a) FilterSort
+type SortedList
+    = SortedList NoteList FilterSort
 
 
-type alias NoteList a =
-    List (Note a)
+type alias NoteList =
+    List Note
 
 
 type FilterSort
     = FilterList String
     | SortList SortListBy
-    | UnOrdered
 
 
 type SortListBy
-    = CreationDate
-    | Alphabetically
+    = CreationDate SortDirection
+    | Alphabetically SortDirection
+
+
+type SortDirection
+    = Asc
+    | Desc
 
 
 
 -- Helpers
 
 
-createNote : String -> NoteBody
-createNote text =
+createNote : String -> NoteState -> Note
+createNote text state =
     { body = text
     , createdDate = 0
+    , state = state
     }
 
 
-asList : SortedList a -> List (Note a)
+asList : SortedList -> List Note
 asList (SortedList list state) =
-    list
+    case state of
+        SortList (Alphabetically Desc) ->
+            list
+                |> List.sortBy .body
+
+        SortList (Alphabetically Asc) ->
+            list
+                |> List.sortBy .body
+                |> List.reverse
+
+        SortList (CreationDate Desc) ->
+            list
+                |> List.sortBy .createdDate
+
+        SortList (CreationDate Asc) ->
+            list
+                |> List.sortBy .createdDate
+                |> List.reverse
+
+        _ ->
+            list
+                |> List.sortBy .createdDate

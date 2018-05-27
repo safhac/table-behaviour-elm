@@ -8,8 +8,8 @@ import NoteList exposing (..)
 import Styles exposing (..)
 
 
-renderNoteRow : Note a -> Html Msg
-renderNoteRow (Note { body, createdDate } state) =
+renderNoteRow : Note -> Html Msg
+renderNoteRow { body, createdDate, state } =
     let
         showDate =
             text <| formatTimestamp createdDate
@@ -76,8 +76,23 @@ renderNoteRow (Note { body, createdDate } state) =
 renderTableHead : Html Msg
 renderTableHead =
     thead []
-        [ th [ onClick NoOp, tHeader ] [ text "Title" ]
-        , th [ onClick NoOp, tHeader, searchHeader ] [ text "Created", input [ placeholder "  Search..." ] [] ]
+        [ th
+            [ Alphabetically Desc
+                |> SortList
+                |> FilterMsg
+                |> onClick
+            , tHeader
+            ]
+            [ text "Title" ]
+        , th
+            [ CreationDate Desc
+                |> SortList
+                |> FilterMsg
+                |> onClick
+            , tHeader
+            , searchHeader
+            ]
+            [ text "Created", input [ placeholder "  Search..." ] [] ]
         ]
 
 

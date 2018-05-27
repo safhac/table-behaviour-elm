@@ -8740,14 +8740,60 @@ var _elm_lang$html$Html_Events$Options = F2(
 
 var _safhac$elm_app_demo$NoteList$asList = function (_p0) {
 	var _p1 = _p0;
-	return _p1._0;
+	var _p3 = _p1._0;
+	var _p2 = _p1._1;
+	if (_p2.ctor === 'SortList') {
+		if (_p2._0.ctor === 'Alphabetically') {
+			if (_p2._0._0.ctor === 'Desc') {
+				return A2(
+					_elm_lang$core$List$sortBy,
+					function (_) {
+						return _.body;
+					},
+					_p3);
+			} else {
+				return _elm_lang$core$List$reverse(
+					A2(
+						_elm_lang$core$List$sortBy,
+						function (_) {
+							return _.body;
+						},
+						_p3));
+			}
+		} else {
+			if (_p2._0._0.ctor === 'Desc') {
+				return A2(
+					_elm_lang$core$List$sortBy,
+					function (_) {
+						return _.createdDate;
+					},
+					_p3);
+			} else {
+				return _elm_lang$core$List$reverse(
+					A2(
+						_elm_lang$core$List$sortBy,
+						function (_) {
+							return _.createdDate;
+						},
+						_p3));
+			}
+		}
+	} else {
+		return A2(
+			_elm_lang$core$List$sortBy,
+			function (_) {
+				return _.createdDate;
+			},
+			_p3);
+	}
 };
-var _safhac$elm_app_demo$NoteList$createNote = function (text) {
-	return {body: text, createdDate: 0};
-};
-var _safhac$elm_app_demo$NoteList$NoteBody = F2(
-	function (a, b) {
-		return {body: a, createdDate: b};
+var _safhac$elm_app_demo$NoteList$createNote = F2(
+	function (text, state) {
+		return {body: text, createdDate: 0, state: state};
+	});
+var _safhac$elm_app_demo$NoteList$Note = F3(
+	function (a, b, c) {
+		return {body: a, createdDate: b, state: c};
 	});
 var _safhac$elm_app_demo$NoteList$NoteMsg = function (a) {
 	return {ctor: 'NoteMsg', _0: a};
@@ -8756,10 +8802,6 @@ var _safhac$elm_app_demo$NoteList$FilterMsg = function (a) {
 	return {ctor: 'FilterMsg', _0: a};
 };
 var _safhac$elm_app_demo$NoteList$NoOp = {ctor: 'NoOp'};
-var _safhac$elm_app_demo$NoteList$Note = F2(
-	function (a, b) {
-		return {ctor: 'Note', _0: a, _1: b};
-	});
 var _safhac$elm_app_demo$NoteList$Hidden = {ctor: 'Hidden'};
 var _safhac$elm_app_demo$NoteList$Displayed = {ctor: 'Displayed'};
 var _safhac$elm_app_demo$NoteList$Created = {ctor: 'Created'};
@@ -8770,15 +8812,20 @@ var _safhac$elm_app_demo$NoteList$SortedList = F2(
 	function (a, b) {
 		return {ctor: 'SortedList', _0: a, _1: b};
 	});
-var _safhac$elm_app_demo$NoteList$UnOrdered = {ctor: 'UnOrdered'};
 var _safhac$elm_app_demo$NoteList$SortList = function (a) {
 	return {ctor: 'SortList', _0: a};
 };
 var _safhac$elm_app_demo$NoteList$FilterList = function (a) {
 	return {ctor: 'FilterList', _0: a};
 };
-var _safhac$elm_app_demo$NoteList$Alphabetically = {ctor: 'Alphabetically'};
-var _safhac$elm_app_demo$NoteList$CreationDate = {ctor: 'CreationDate'};
+var _safhac$elm_app_demo$NoteList$Alphabetically = function (a) {
+	return {ctor: 'Alphabetically', _0: a};
+};
+var _safhac$elm_app_demo$NoteList$CreationDate = function (a) {
+	return {ctor: 'CreationDate', _0: a};
+};
+var _safhac$elm_app_demo$NoteList$Desc = {ctor: 'Desc'};
+var _safhac$elm_app_demo$NoteList$Asc = {ctor: 'Asc'};
 
 var _safhac$elm_app_demo$Styles$searchHeader = _elm_lang$html$Html_Attributes$style(
 	{
@@ -8960,7 +9007,10 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 			_elm_lang$html$Html$th,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_safhac$elm_app_demo$NoteList$NoOp),
+				_0: _elm_lang$html$Html_Events$onClick(
+					_safhac$elm_app_demo$NoteList$FilterMsg(
+						_safhac$elm_app_demo$NoteList$SortList(
+							_safhac$elm_app_demo$NoteList$Alphabetically(_safhac$elm_app_demo$NoteList$Desc)))),
 				_1: {
 					ctor: '::',
 					_0: _safhac$elm_app_demo$Styles$tHeader,
@@ -8978,7 +9028,10 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 				_elm_lang$html$Html$th,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Events$onClick(_safhac$elm_app_demo$NoteList$NoOp),
+					_0: _elm_lang$html$Html_Events$onClick(
+						_safhac$elm_app_demo$NoteList$FilterMsg(
+							_safhac$elm_app_demo$NoteList$SortList(
+								_safhac$elm_app_demo$NoteList$CreationDate(_safhac$elm_app_demo$NoteList$Desc)))),
 					_1: {
 						ctor: '::',
 						_0: _safhac$elm_app_demo$Styles$tHeader,
@@ -9010,11 +9063,11 @@ var _safhac$elm_app_demo$TableView$renderTableHead = A2(
 	});
 var _safhac$elm_app_demo$TableView$renderNoteRow = function (_p0) {
 	var _p1 = _p0;
-	var _p3 = _p1._0.body;
+	var _p3 = _p1.body;
 	var showDate = _elm_lang$html$Html$text(
-		_safhac$elm_app_demo$TableView$formatTimestamp(_p1._0.createdDate));
+		_safhac$elm_app_demo$TableView$formatTimestamp(_p1.createdDate));
 	var rowElement = function () {
-		var _p2 = _p1._1;
+		var _p2 = _p1.state;
 		switch (_p2.ctor) {
 			case 'Selected':
 				return A2(
@@ -9271,51 +9324,28 @@ var _safhac$elm_app_demo$Main$view = function (model) {
 			_1: {ctor: '[]'}
 		});
 };
-var _safhac$elm_app_demo$Main$update = F2(
-	function (msg, model) {
-		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-	});
-var _safhac$elm_app_demo$Main$initialNoteBody = {body: 'My first note :)', createdDate: 0};
-var _safhac$elm_app_demo$Main$initialNote = A2(_safhac$elm_app_demo$NoteList$Note, _safhac$elm_app_demo$Main$initialNoteBody, _safhac$elm_app_demo$NoteList$Displayed);
+var _safhac$elm_app_demo$Main$initialNote = {body: 'My first note :)', createdDate: 0, state: _safhac$elm_app_demo$NoteList$Displayed};
 var _safhac$elm_app_demo$Main$initialList = {
 	ctor: '::',
 	_0: _safhac$elm_app_demo$Main$initialNote,
 	_1: {
 		ctor: '::',
-		_0: A2(
-			_safhac$elm_app_demo$NoteList$Note,
-			_safhac$elm_app_demo$NoteList$createNote('Note 2'),
-			_safhac$elm_app_demo$NoteList$Displayed),
+		_0: A2(_safhac$elm_app_demo$NoteList$createNote, 'Note 2', _safhac$elm_app_demo$NoteList$Displayed),
 		_1: {
 			ctor: '::',
-			_0: A2(
-				_safhac$elm_app_demo$NoteList$Note,
-				_safhac$elm_app_demo$NoteList$createNote('Deleted note'),
-				_safhac$elm_app_demo$NoteList$Deleted),
+			_0: A2(_safhac$elm_app_demo$NoteList$createNote, 'Deleted note', _safhac$elm_app_demo$NoteList$Deleted),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_safhac$elm_app_demo$NoteList$Note,
-					_safhac$elm_app_demo$NoteList$createNote('Selected note'),
-					_safhac$elm_app_demo$NoteList$Selected),
+				_0: A2(_safhac$elm_app_demo$NoteList$createNote, 'Selected note', _safhac$elm_app_demo$NoteList$Selected),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_safhac$elm_app_demo$NoteList$Note,
-						_safhac$elm_app_demo$NoteList$createNote('Edited note'),
-						_safhac$elm_app_demo$NoteList$Edited),
+					_0: A2(_safhac$elm_app_demo$NoteList$createNote, 'Edited note', _safhac$elm_app_demo$NoteList$Edited),
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_safhac$elm_app_demo$NoteList$Note,
-							_safhac$elm_app_demo$NoteList$createNote('Hidden note'),
-							_safhac$elm_app_demo$NoteList$Hidden),
+						_0: A2(_safhac$elm_app_demo$NoteList$createNote, 'Hidden note', _safhac$elm_app_demo$NoteList$Hidden),
 						_1: {
 							ctor: '::',
-							_0: A2(
-								_safhac$elm_app_demo$NoteList$Note,
-								_safhac$elm_app_demo$NoteList$createNote(''),
-								_safhac$elm_app_demo$NoteList$Created),
+							_0: A2(_safhac$elm_app_demo$NoteList$createNote, '', _safhac$elm_app_demo$NoteList$Created),
 							_1: {ctor: '[]'}
 						}
 					}
@@ -9324,10 +9354,59 @@ var _safhac$elm_app_demo$Main$initialList = {
 		}
 	}
 };
+var _safhac$elm_app_demo$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		if (_p0.ctor === 'FilterMsg') {
+			var _p1 = _p0._0;
+			if (_p1.ctor === 'SortList') {
+				var _p2 = _p1._0;
+				if (_p2.ctor === 'Alphabetically') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						{
+							list: A2(
+								_safhac$elm_app_demo$NoteList$SortedList,
+								_safhac$elm_app_demo$Main$initialList,
+								_safhac$elm_app_demo$NoteList$SortList(
+									_safhac$elm_app_demo$NoteList$Alphabetically(_p2._0)))
+						},
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						{
+							list: A2(
+								_safhac$elm_app_demo$NoteList$SortedList,
+								_safhac$elm_app_demo$Main$initialList,
+								_safhac$elm_app_demo$NoteList$SortList(
+									_safhac$elm_app_demo$NoteList$CreationDate(_p2._0)))
+						},
+						{ctor: '[]'});
+				}
+			} else {
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					{
+						list: A2(
+							_safhac$elm_app_demo$NoteList$SortedList,
+							_safhac$elm_app_demo$Main$initialList,
+							_safhac$elm_app_demo$NoteList$FilterList(_p1._0))
+					},
+					{ctor: '[]'});
+			}
+		} else {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				model,
+				{ctor: '[]'});
+		}
+	});
 var _safhac$elm_app_demo$Main$initialNoteList = A2(
 	_safhac$elm_app_demo$NoteList$SortedList,
 	_safhac$elm_app_demo$Main$initialList,
-	_safhac$elm_app_demo$NoteList$SortList(_safhac$elm_app_demo$NoteList$Alphabetically));
+	_safhac$elm_app_demo$NoteList$SortList(
+		_safhac$elm_app_demo$NoteList$Alphabetically(_safhac$elm_app_demo$NoteList$Desc)));
 var _safhac$elm_app_demo$Main$init = {
 	ctor: '_Tuple2',
 	_0: {list: _safhac$elm_app_demo$Main$initialNoteList},
@@ -9338,7 +9417,7 @@ var _safhac$elm_app_demo$Main$main = _elm_lang$html$Html$program(
 		init: _safhac$elm_app_demo$Main$init,
 		update: _safhac$elm_app_demo$Main$update,
 		view: _safhac$elm_app_demo$Main$view,
-		subscriptions: function (_p0) {
+		subscriptions: function (_p3) {
 			return _elm_lang$core$Platform_Sub$none;
 		}
 	})();
