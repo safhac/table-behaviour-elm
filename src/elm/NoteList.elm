@@ -17,7 +17,7 @@ type NoteState
 
 
 type alias NoteBody =
-    { text : String
+    { body : String
     , created : Float
     }
 
@@ -43,3 +43,12 @@ type FilterSort
 type SortListBy
     = CreationDate
     | Alphabetically
+
+
+
+-- Helpers
+
+
+asList : SortedList a -> List (Note a)
+asList (SortedList list state) =
+    list

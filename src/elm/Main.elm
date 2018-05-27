@@ -1,7 +1,8 @@
 module Main exposing (..)
 
-import Html exposing (Html, div, text)
+import Html exposing (Html, div, table, text)
 import NoteList exposing (..)
+import TableView exposing (renderNoteRow)
 
 
 main : Program Never (Model a) Msg
@@ -57,7 +58,7 @@ initialNote =
 
 initialNoteBody : NoteBody
 initialNoteBody =
-    { text = "My first note :)"
+    { body = "My first note :)"
     , created = 0
     }
 
@@ -77,4 +78,11 @@ update msg model =
 
 view : Model a -> Html Msg
 view model =
-    div [] [ model.list |> toString |> text ]
+    div []
+        [ table []
+            (model.list
+                |> asList
+                |> List.map
+                    renderNoteRow
+            )
+        ]
