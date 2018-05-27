@@ -7795,9 +7795,31 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
-var _safhac$elm_app_demo$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+var _safhac$elm_app_demo$NoteList$NoteBody = F2(
+	function (a, b) {
+		return {text: a, created: b};
+	});
+var _safhac$elm_app_demo$NoteList$Note = F2(
+	function (a, b) {
+		return {ctor: 'Note', _0: a, _1: b};
+	});
+var _safhac$elm_app_demo$NoteList$Created = {ctor: 'Created'};
+var _safhac$elm_app_demo$NoteList$Deleted = {ctor: 'Deleted'};
+var _safhac$elm_app_demo$NoteList$Edited = {ctor: 'Edited'};
+var _safhac$elm_app_demo$NoteList$Selected = {ctor: 'Selected'};
+var _safhac$elm_app_demo$NoteList$SortedList = F2(
+	function (a, b) {
+		return {ctor: 'SortedList', _0: a, _1: b};
+	});
+var _safhac$elm_app_demo$NoteList$Sort = function (a) {
+	return {ctor: 'Sort', _0: a};
 };
+var _safhac$elm_app_demo$NoteList$Filter = function (a) {
+	return {ctor: 'Filter', _0: a};
+};
+var _safhac$elm_app_demo$NoteList$Alphabetically = {ctor: 'Alphabetically'};
+var _safhac$elm_app_demo$NoteList$CreationDate = {ctor: 'CreationDate'};
+
 var _safhac$elm_app_demo$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -7818,7 +7840,14 @@ var _safhac$elm_app_demo$Main$init = {
 	_1: _elm_lang$core$Platform_Cmd$none
 };
 var _safhac$elm_app_demo$Main$main = _elm_lang$html$Html$program(
-	{init: _safhac$elm_app_demo$Main$init, update: _safhac$elm_app_demo$Main$update, view: _safhac$elm_app_demo$Main$view, subscriptions: _safhac$elm_app_demo$Main$subscriptions})();
+	{
+		init: _safhac$elm_app_demo$Main$init,
+		update: _safhac$elm_app_demo$Main$update,
+		view: _safhac$elm_app_demo$Main$view,
+		subscriptions: function (_p0) {
+			return _elm_lang$core$Platform_Sub$none;
+		}
+	})();
 var _safhac$elm_app_demo$Main$Model = function (a) {
 	return {message: a};
 };

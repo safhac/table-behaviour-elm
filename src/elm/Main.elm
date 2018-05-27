@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (Html, div, text)
+import NoteList exposing (..)
 
 
 main : Program Never Model Msg
@@ -9,7 +10,7 @@ main =
         { init = init
         , update = update
         , view = view
-        , subscriptions = subscriptions
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -51,12 +52,3 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [] [ text model.message ]
-
-
-
--- SUBSCRIPTIONS
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
