@@ -75,6 +75,11 @@ initialList =
             "Hidden note"
         )
         Hidden
+    , Note
+        (createNote
+            ""
+        )
+        Created
     ]
 
 

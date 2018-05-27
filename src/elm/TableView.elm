@@ -1,7 +1,9 @@
 module TableView exposing (renderNoteRow)
 
-import Html exposing (Html, a, div, td, text, tr)
-import Html.Attributes exposing (class)
+import Date
+import Html exposing (Html, a, div, input, td, text, tr)
+import Html.Attributes exposing (placeholder, type_)
+import Html.Events exposing (onClick)
 import NoteList exposing (..)
 import Styles exposing (..)
 
@@ -9,30 +11,69 @@ import Styles exposing (..)
 renderNoteRow : Note a -> Html msg
 renderNoteRow (Note { body, createdDate } state) =
     let
-        noteStyle =
+        showDate =
+            text <| formatTimestamp createdDate
+
+        rowElement =
             case state of
                 Selected ->
-                    selected
+                    tr [ rowStyle, selected ]
+                        [ td []
+                            [ text body ]
+                        , td []
+                            [ showDate
+                            ]
+                        ]
 
                 Edited ->
-                    edited
+                    tr [ rowStyle ]
+                        [ td []
+                            [ input [ edited, placeholder body ] [] ]
+                        , td []
+                            [ showDate
+                            ]
+                        ]
 
                 Deleted ->
-                    deleted
+                    tr [ rowStyle, deleted ]
+                        [ td []
+                            [ text body ]
+                        , td []
+                            [ showDate
+                            ]
+                        ]
 
                 Created ->
-                    created
+                    tr [ rowStyle ]
+                        [ td []
+                            [ input [ edited, created, placeholder "Create a new note..." ] []
+                            ]
+                        , td []
+                            []
+                        ]
 
                 Displayed ->
-                    displayed
+                    tr [ rowStyle, displayed ]
+                        [ td []
+                            [ text body ]
+                        , td []
+                            [ showDate
+                            ]
+                        ]
 
                 Hidden ->
-                    hidden
+                    tr [ rowStyle, hidden ]
+                        [ td []
+                            [ text body ]
+                        , td []
+                            [ showDate
+                            ]
+                        ]
     in
-    tr [ rowStyle, noteStyle ]
-        [ td []
-            [ text body ]
-        , td []
-            [ text "created"
-            ]
-        ]
+    rowElement
+
+
+formatTimestamp : Float -> String
+formatTimestamp timestamp =
+    toString (Date.fromTime timestamp)
+        |> String.slice 1 -16

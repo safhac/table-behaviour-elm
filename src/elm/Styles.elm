@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Html exposing (Attribute)
-import Html.Attributes exposing (class, id, style)
+import Html.Attributes exposing (class, id, style, type_)
 
 
 standardContainerStyle : Attribute msg
@@ -36,7 +36,8 @@ rowStyle =
 selected : Attribute msg
 selected =
     style
-        [ ( "background-color", "#fefefe" )
+        [ ( "background-color", "rgb(107, 107, 107)" )
+        , ( "color", "rgb(207, 207, 207)" )
         , ( "border", "1px solid #888" )
         , ( "box-shadow", "0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)" )
         ]
@@ -44,7 +45,14 @@ selected =
 
 edited : Attribute msg
 edited =
-    style []
+    style
+        [ ( "width", "100%" )
+        , ( "height", "25px" )
+        , ( "border-radius", "3px" )
+        , ( "border", "none" )
+        , ( "text-align", "center" )
+        , ( "font-size", "16px" )
+        ]
 
 
 deleted : Attribute msg
@@ -58,7 +66,7 @@ deleted =
 
 created : Attribute msg
 created =
-    style []
+    style [ ( "color", "rgba(0, 0, 0, 0.6)" ) ]
 
 
 displayed : Attribute msg
