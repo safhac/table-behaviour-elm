@@ -91,6 +91,11 @@ asList (SortedList list state) =
                 |> List.sortBy .createdDate
                 |> List.reverse
 
-        _ ->
-            list
-                |> List.sortBy .createdDate
+        FilterList maybeSearch ->
+            case maybeSearch of
+                "" ->
+                    list
+
+                searchString ->
+                    list
+                        |> List.filter (\p -> String.contains searchString (String.toLower p.body))

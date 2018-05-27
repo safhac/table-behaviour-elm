@@ -100,13 +100,34 @@ update msg model =
 
 
 view : Model -> Html Msg
-view model =
+view { list } =
     let
+        currentSort =
+            case list of
+                SortedList list sort ->
+                    sort
+
+        alphaSort =
+            case currentSort of
+                SortList (Alphabetically Desc) ->
+                    Alphabetically Asc
+
+                _ ->
+                    Alphabetically Desc
+
+        dateSort =
+            case currentSort of
+                SortList (CreationDate Desc) ->
+                    CreationDate Asc
+
+                _ ->
+                    CreationDate Desc
+
         header =
-            renderTableHead
+            renderTableHead ( alphaSort, dateSort )
 
         content =
-            model.list
+            list
                 |> asList
                 |> List.map
                     renderNoteRow

@@ -3,7 +3,7 @@ module TableView exposing (..)
 import Date
 import Html exposing (Html, a, div, input, td, text, th, thead, tr)
 import Html.Attributes exposing (placeholder, type_)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import NoteList exposing (..)
 import Styles exposing (..)
 
@@ -73,26 +73,34 @@ renderNoteRow { body, createdDate, state } =
     rowElement
 
 
-renderTableHead : Html Msg
-renderTableHead =
+renderTableHead : ( SortListBy, SortListBy ) -> Html Msg
+renderTableHead ( alphaSort, dateSort ) =
     thead []
         [ th
-            [ Alphabetically Desc
-                |> SortList
-                |> FilterMsg
-                |> onClick
-            , tHeader
+            [ tHeader
             ]
-            [ text "Title" ]
+            [ a
+                [ alphaSort
+                    |> SortList
+                    |> FilterMsg
+                    |> onClick
+                ]
+                [ text "Title" ]
+            ]
         , th
-            [ CreationDate Desc
-                |> SortList
-                |> FilterMsg
-                |> onClick
-            , tHeader
+            [ tHeader
             , searchHeader
+            , onInput (FilterList >> FilterMsg)
             ]
-            [ text "Created", input [ placeholder "  Search..." ] [] ]
+            [ a
+                [ dateSort
+                    |> SortList
+                    |> FilterMsg
+                    |> onClick
+                ]
+                [ text "Created" ]
+            , input [ placeholder "  Search..." ] []
+            ]
         ]
 
 
